@@ -16,19 +16,19 @@ public IActionResult Index(Query query)
 
 ![](images/query.png)
 
-Giving `?$filter=startswith(Name, 'j') or startswith(name, 'm')&orderby=id desc&skip=1&take=2` will filter a list of actors into this subset:
+Giving `"?$skip=1&$top=2&$filter=startswith(Name, 'j') or year(birthdate) ge 1970&$orderby=id desc"` will filter a list of actors into this subset:
 
 ```json
 [
   {
+    "id": 7,
+    "name": "Charlize Theron",
+    "birthDate": "1986-01-01T00:00:00"
+  },
+  {
     "id": 6,
     "name": "Jennifer Lawrence",
     "birthDate": "1975-01-01T00:00:00"
-  },
-  {
-    "id": 4,
-    "name": "Meryl Streep",
-    "birthDate": "1973-01-01T00:00:00"
   }
 ]
 ```
@@ -39,6 +39,6 @@ Giving `?$filter=startswith(Name, 'j') or startswith(name, 'm')&orderby=id desc&
 
 This library is created thanks to a [great guide][guide] by [Evgeny Bychkov](https://twitter.com/bychkovea) and [StringToExpression library][lib] 
 
-[odata]: https://www.odata.org/documentation/odata-version-2-0/uri-conventions/#FilterSystemQueryOption
+[odata]: https://www.odata.org/documentation/odata-version-2-0/uri-conventions/#_45_filter_system_query_option_filter_13
 [guide]: http://codewithevgeny.com/web-api-odata/
 [lib]: https://github.com/codecutout/StringToExpression
