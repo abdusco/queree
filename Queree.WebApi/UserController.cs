@@ -17,10 +17,6 @@ namespace Queree.WebApi
         [HttpGet]
         public IActionResult Index(Query query)
         {
-            if (query.OrderBy != null)
-            {
-            }
-
             return Ok(_dbContext.Users.ApplyQuery(query).ToList());
         }
     }
