@@ -16,7 +16,7 @@ public IActionResult Index(Query query)
 
 ![](images/query_params.png)
 
-Giving `"?$skip=1&$top=2&$filter=startswith(Name, 'j') or year(birthdate) ge 1970&$orderby=id desc"` will filter a list of actors into this subset:
+Giving `"?$skip=1&$top=2&$filter=startswith(Name, 'j') or year(birthdate) ge 1970&$orderby=id desc"` will filter a list of actors down to this subset:
 
 ```json
 [
