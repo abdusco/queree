@@ -33,7 +33,9 @@ Giving `"?$skip=1&$top=2&$filter=startswith(Name, 'j') or year(birthdate) ge 197
 ]
 ```
 
+## Limitations
 
+- `$orderby` parameter does not support multiple orders (first name, then date etc.). At the moment only a single ordering is possible.
 
 ## Thanks
 
