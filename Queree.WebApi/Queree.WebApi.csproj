@@ -7,8 +7,11 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.4" />
-      <PackageReference Include="StringToExpression" Version="1.1.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Queree.DynamicQuery\Queree.DynamicQuery.csproj" />
     </ItemGroup>
 
 </Project>

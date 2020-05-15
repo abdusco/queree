@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Queree.Seed;
 
-namespace Queree
+namespace Queree.WebApi
 {
     public class AppDbContext: DbContext
     {

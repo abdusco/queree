@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Queree
+namespace Queree.WebApi
 {
     public class User
     {

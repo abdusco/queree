@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queree", "Queree\Queree.csproj", "{F23270BD-5589-48CA-B904-8439D9911FAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queree.WebApi", "Queree.WebApi\Queree.WebApi.csproj", "{F23270BD-5589-48CA-B904-8439D9911FAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queree.DynamicQuery", "Queree.DynamicQuery\Queree.DynamicQuery.csproj", "{46C8FC61-8C57-4215-BEB3-AB4251ECAEFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{F23270BD-5589-48CA-B904-8439D9911FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23270BD-5589-48CA-B904-8439D9911FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23270BD-5589-48CA-B904-8439D9911FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C8FC61-8C57-4215-BEB3-AB4251ECAEFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C8FC61-8C57-4215-BEB3-AB4251ECAEFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C8FC61-8C57-4215-BEB3-AB4251ECAEFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C8FC61-8C57-4215-BEB3-AB4251ECAEFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

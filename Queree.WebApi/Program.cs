@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Queree.Seed;
+using Queree.WebApi.Seed;
 
-namespace Queree
+namespace Queree.WebApi
 {
     public class Program
     {

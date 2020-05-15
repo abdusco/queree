@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Queree;
 
-namespace Queree.Migrations
+namespace Queree.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20200515094245_init")]

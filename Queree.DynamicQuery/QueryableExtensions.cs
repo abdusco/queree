@@ -2,28 +2,10 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
 using StringToExpression.LanguageDefinitions;
 
-namespace Queree
+namespace Queree.DynamicQuery
 {
-    public class Query
-    {
-        private const int MaxPageSize = 50;
-        private int _top = MaxPageSize;
-        [FromQuery(Name = "$skip")] public int Skip { get; set; } = 0;
-
-        [FromQuery(Name = "$top")]
-        public int Top
-        {
-            get => _top;
-            set => _top = Math.Min(MaxPageSize, value);
-        }
-
-        [FromQuery(Name = "$filter")] public string Filter { get; set; }
-        [FromQuery(Name = "$orderby")] public string OrderBy { get; set; }
-    }
-
     public static class QueryableExtensions
     {
         private static readonly ODataFilterLanguage ODataFilter = new ODataFilterLanguage();
@@ -73,38 +55,51 @@ namespace Queree
                 descending = parts[1].ToLowerInvariant() == "desc";
             }
 
-            var selector = CreateSelectorExpression<T>(parts[0]);
-            return descending ? queryable.OrderByDescending(selector) : queryable.OrderBy(selector);
+            var propertyName = parts[0];
+            return descending ? queryable.OrderByDescending(propertyName) : queryable.OrderBy(propertyName);
         }
 
-
-        public static Expression<Func<T, string>> CreateSelectorExpression<T>(string propertyName)
+        private static IOrderedQueryable<T> OrderBy<T>(
+            this IQueryable<T> source,
+            string property)
         {
-            var paramterExpression = Expression.Parameter(typeof(T));
-            return (Expression<Func<T, string>>) Expression.Lambda(
-                Expression.PropertyOrField(paramterExpression, propertyName),
-                paramterExpression);
-        }
-    }
-
-    [Route("[controller]")]
-    public class UserController : Controller
-    {
-        private readonly AppDbContext _dbContext;
-
-        public UserController(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
+            return ApplyOrder(source, property, "OrderBy");
         }
 
-        [HttpGet]
-        public IActionResult Index(Query query)
+        private static IOrderedQueryable<T> OrderByDescending<T>(
+            this IQueryable<T> source,
+            string property)
         {
-            if (query.OrderBy != null)
+            return ApplyOrder(source, property, "OrderByDescending");
+        }
+
+        private static IOrderedQueryable<T> ApplyOrder<T>(
+            IQueryable<T> source,
+            string property,
+            string methodName)
+        {
+            var props = property.Split('.');
+            var type = typeof(T);
+            var arg = Expression.Parameter(type, "x");
+            Expression expr = arg;
+            foreach (var prop in props)
             {
+                var pi = type.GetProperty(prop, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                expr = Expression.Property(expr, pi);
+                type = pi.PropertyType;
             }
 
-            return Ok(_dbContext.Users.ApplyQuery(query).ToList());
+            var delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
+            var lambda = Expression.Lambda(delegateType, expr, arg);
+
+            var result = typeof(Queryable).GetMethods().Single(
+                    method => method.Name == methodName
+                              && method.IsGenericMethodDefinition
+                              && method.GetGenericArguments().Length == 2
+                              && method.GetParameters().Length == 2)
+                .MakeGenericMethod(typeof(T), type)
+                .Invoke(null, new object[] {source, lambda});
+            return (IOrderedQueryable<T>) result;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Queree.Migrations
+namespace Queree.WebApi.Migrations
 {
     public partial class init : Migration
     {
